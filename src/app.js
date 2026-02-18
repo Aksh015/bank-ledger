@@ -10,8 +10,8 @@ app.use(cookieParser())
 const authRouter = require("./routes/auth.routes")
 app.use("/api/auth",authRouter)
 
-
-
+const accountRouter = require("./routes/account.routes")
+app.use("/api/accounts",accountRouter)
 
 
 app.get("/", (req, res) => {
