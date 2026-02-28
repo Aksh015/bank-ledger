@@ -21,12 +21,12 @@ const userSchema = new mongoose.Schema({
     // select false = this field will NOT be returned by default when you query the database
         select: false
     },
-    // systemUser: {
-    //     type: Boolean,
-    //     default: false,
-    //     immutable: true,
-    //     select: false
-    // }
+    systemUser: {
+        type: Boolean,
+        default: false,
+        immutable: true,
+        select: false
+    }
 }, { timestamps: true})
 
 // ✔ Sync function  → next() REQUIRED  
