@@ -1,7 +1,14 @@
 const mongoose = require("mongoose")
 
 function connectToDB() {
-    mongoose.connect(process.env.MONGO_URL)
+    const mongoUrl = process.env.MONGO_URL
+
+    if (!mongoUrl) {
+        console.error("MONGO_URL is missing")
+        process.exit(1)
+    }
+
+    mongoose.connect(mongoUrl)
         .then(() => {
             console.log("server is connected to DB")
         })

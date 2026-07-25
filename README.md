@@ -4,6 +4,8 @@
 
 Built with **Node.js** · **Express 5** · **MongoDB** · **Mongoose 9**
 
+**Live Production:** [https://bank-ledger-p3z2.onrender.com/](https://bank-ledger-p3z2.onrender.com/)
+
 ---
 
 ## Features
@@ -17,6 +19,7 @@ Built with **Node.js** · **Express 5** · **MongoDB** · **Mongoose 9**
 - Balance derived from ledger (never stored as a static field)
 - System user can seed initial funds into any account
 - Email notifications on registration & transactions (Gmail OAuth2)
+- Prometheus metrics endpoint and Grafana-ready monitoring setup
 
 ---
 
@@ -47,6 +50,28 @@ npm start       # production
 ```
 
 Server runs at `http://localhost:3000`
+
+Production deployment:
+
+- Live app: [https://bank-ledger-p3z2.onrender.com/](https://bank-ledger-p3z2.onrender.com/)
+- Database: MongoDB Atlas via `MONGO_URL`
+- Deployment platform: Render
+- Monitoring: Prometheus + Grafana in local development, production-ready metrics endpoint at `/metrics`
+
+Monitoring stack:
+
+- Prometheus: `http://localhost:9090`
+- Grafana: `http://localhost:3001` (default login: `admin` / `admin`)
+- Metrics endpoint: `http://localhost:3000/metrics`
+- Dashboard: `Backend Ledger Overview`
+
+Deployment notes:
+
+- The app reads configuration from environment variables.
+- `MONGO_URL` should point to MongoDB Atlas in production.
+- Health endpoints: `/healthz` and `/readyz`
+- Metrics endpoint: `/metrics`
+- If you update code in GitHub, Render can redeploy automatically when connected to the repository.
 
 ---
 
