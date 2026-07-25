@@ -75,6 +75,74 @@ Deployment notes:
 
 ---
 
+## How To Test
+
+### 1. Test the app locally
+
+```bash
+npm install
+npm test
+npm run dev
+```
+
+Check these endpoints in the browser or Postman:
+
+- `http://localhost:3000/`
+- `http://localhost:3000/healthz`
+- `http://localhost:3000/readyz`
+- `http://localhost:3000/metrics`
+
+### 2. Test the full Docker stack
+
+```bash
+docker compose up --build
+```
+
+This starts:
+
+- app on `http://localhost:3000`
+- MongoDB on `mongodb://localhost:27017`
+- Prometheus on `http://localhost:9090`
+- Grafana on `http://localhost:3001`
+
+### 3. Test Prometheus
+
+Open `http://localhost:9090` and check:
+
+- `Status -> Targets` and confirm `backend-ledger` is `UP`
+- `Graph` tab and run queries like:
+	- `http_requests_total`
+	- `rate(http_requests_total[5m])`
+	- `http_request_duration_ms_bucket`
+	- `histogram_quantile(0.95, sum(rate(http_request_duration_ms_bucket[5m])) by (le, method))`
+
+### 4. Test Grafana
+
+Open `http://localhost:3001` and log in with:
+
+- username: `admin`
+- password: `admin`
+
+Then open the dashboard:
+
+- `Backend Ledger Overview`
+
+Hit the app endpoints a few times and refresh the dashboard to see the charts update.
+
+### 5. Test production
+
+Open the live app:
+
+- `https://bank-ledger-p3z2.onrender.com/`
+
+Verify:
+
+- the app loads correctly
+- API routes respond
+- the deployment is using the latest GitHub push
+
+---
+
 ## API Endpoints
 
 > Auth: send JWT via cookie (`token`) or header (`Authorization: Bearer <token>`)
